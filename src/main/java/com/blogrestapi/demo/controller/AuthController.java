@@ -1,5 +1,6 @@
 package com.blogrestapi.demo.controller;
 
+import com.blogrestapi.demo.payload.JWTAuthResponse;
 import com.blogrestapi.demo.payload.LoginDto;
 import com.blogrestapi.demo.payload.RegisterDto;
 import com.blogrestapi.demo.service.AuthService;
@@ -17,11 +18,14 @@ public class AuthController {
     @Autowired
     private AuthService authService ;
 
-    @PostMapping(value = {"/login", "/signin"})
-    public ResponseEntity<String> login(@RequestBody LoginDto loginDto){
-        String response = authService.login(loginDto) ;
-        return  ResponseEntity.ok(response) ;
-    }
+//    @PostMapping(value = {"/login", "/signin"})
+//    public ResponseEntity<JWTAuthResponse> login(@RequestBody LoginDto loginDto){
+//        System.out.println("logging in");
+//        String token = authService.login(loginDto) ;
+//        JWTAuthResponse jwtAuthResponse = new JWTAuthResponse() ;
+//        jwtAuthResponse.setAccessToken(token);
+//        return  ResponseEntity.ok(jwtAuthResponse) ;
+//    }
 
     @PostMapping(value = {"/register", "/signup"})
     public ResponseEntity<String> register(@RequestBody RegisterDto registerDto){

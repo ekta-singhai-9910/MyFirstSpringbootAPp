@@ -7,6 +7,7 @@ import com.blogrestapi.demo.payload.LoginDto;
 import com.blogrestapi.demo.payload.RegisterDto;
 import com.blogrestapi.demo.repository.RoleDataRepository;
 import com.blogrestapi.demo.repository.UserDataRepository;
+import com.blogrestapi.demo.security.JwtTokenProvider;
 import com.blogrestapi.demo.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,9 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder ;
 
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
     @Override
     public String login(LoginDto loginDto) {
 
@@ -42,8 +46,9 @@ public class AuthServiceImpl implements AuthService {
                 loginDto.getPassword())) ;
 
         SecurityContextHolder.getContext().setAuthentication(authentication) ;
+        String token = jwtTokenProvider.generateToken(authentication);
 
-        return "User logged in successfully!";
+        return token;
     }
 
     @Override
